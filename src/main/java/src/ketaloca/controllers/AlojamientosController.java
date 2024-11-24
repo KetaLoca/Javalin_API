@@ -4,8 +4,14 @@ import io.javalin.http.Context;
 import src.ketaloca.models.Alojamiento;
 import src.ketaloca.repositories.AlojamientosRepository;
 
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import javax.validation.ConstraintViolation;
+
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Set;
 
 public class AlojamientosController {
 
@@ -40,6 +46,20 @@ public class AlojamientosController {
     }
 
     public static void create(Context ctx) {
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+
+            Alojamiento alojamiento = ctx.bodyAsClass(Alojamiento.class);
+            Set<ConstraintViolation<Alojamiento>> violations = validator.validate(alojamiento);
+            if (!violations.isEmpty()) {
+                ctx.status(400).json(Map.of("message", "Bad request"));
+                return;
+            }
+            ctx.status(201).json(alojamiento);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void delete(Context ctx) {

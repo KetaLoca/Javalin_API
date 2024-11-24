@@ -1,14 +1,37 @@
 package src.ketaloca.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.validation.constraints.NotNull;
+
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Alojamiento {
-    private String id, userEmail, nombre, descripcion;
+    @NotNull
+    private String id;
+    @NotNull
+    private String userEmail;
+    @NotNull
+    private String nombre;
+    @NotNull
+    private String descripcion;
+    @NotNull
     private ArrayList<String> imgURL;
+    @NotNull
     private boolean animales;
-    private Ubicacion ubicacion;
+    @NotNull
+    private Map<String, Double> ubicacion;
 
-    public Alojamiento(String id, String userEmail, String descripcion, String nombre, ArrayList<String> imgURL, boolean animales, Ubicacion ubicacion) {
+    @JsonCreator
+    public Alojamiento(@JsonProperty("id") String id,
+                       @JsonProperty("userEmail") String userEmail,
+                       @JsonProperty("descripcion") String descripcion,
+                       @JsonProperty("nombre") String nombre,
+                       @JsonProperty("imgURL") ArrayList<String> imgURL,
+                       @JsonProperty("animales") boolean animales,
+                       @JsonProperty("ubicacion") Map<String, Double> ubicacion) {
         this.id = id;
         this.userEmail = userEmail;
         this.descripcion = descripcion;
@@ -66,11 +89,11 @@ public class Alojamiento {
         this.animales = animales;
     }
 
-    public Ubicacion getUbicacion() {
+    public Map<String, Double> getUbicacion() {
         return ubicacion;
     }
 
-    public void setUbicacion(Ubicacion ubicacion) {
+    public void setUbicacion(Map<String, Double> ubicacion) {
         this.ubicacion = ubicacion;
     }
 
