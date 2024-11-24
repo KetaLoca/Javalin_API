@@ -1,6 +1,7 @@
 package src.ketaloca.models;
 
 import java.util.ArrayList;
+
 public class Alojamiento {
     private String id, userEmail, nombre, descripcion;
     private ArrayList<String> imgURL;
