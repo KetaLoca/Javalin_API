@@ -12,6 +12,7 @@
           <option value="Javalin_API" />
           <option value="Javalin_API" />
           <option value="Javalin_API" />
+          <option value="Javalin_API" />
         </list>
       </option>
       <option name="ignoredPackages">
@@ -19,10 +20,12 @@
           <option value="org.eclipse.jetty:jetty-server:11.0.15" />
           <option value="org.eclipse.jetty:jetty-http:11.0.15" />
           <option value="org.eclipse.jetty:jetty-xml:11.0.15" />
+          <option value="org.postgresql:postgresql:42.6.0" />
         </list>
       </option>
       <option name="ignoredReasons">
         <list>
+          <option value="Not exploitable" />
           <option value="Not exploitable" />
           <option value="Not exploitable" />
           <option value="Not exploitable" />
