@@ -3,6 +3,7 @@ package src.ketaloca.routes;
 import io.javalin.apibuilder.ApiBuilder;
 
 import java.util.Map;
+
 public class UsersRouter {
     public static void routes() {
         ApiBuilder.path("/users", () -> {
