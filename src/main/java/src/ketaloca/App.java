@@ -13,11 +13,7 @@ public class App {
         try {
             Javalin app = Javalin.create().start(4000);
 
-            app.get("/", ctx -> ctx.json(
-                    Map.of(
-                            "english", "Hello world!",
-                            "español", "Hola mundo!")
-            ));
+            app.get("/", ctx -> ctx.json(Map.of("message", "Hello world!")));
 
             app.routes(() -> {
                 UsersRouter.routes();
