@@ -9,6 +9,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import javax.validation.ConstraintViolation;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
@@ -16,23 +17,27 @@ import java.util.Set;
 public class AlojamientosController {
 
     public static void getAlojamientos(Context ctx) {
-        String email = ctx.queryParam("userEmail");
-        if (email == null || email.isEmpty()) {
-            ArrayList<Alojamiento> alojamientos = AlojamientosRepository.getAll();
+        try {
+            String email = ctx.queryParam("userEmail");
+            if (email == null || email.isEmpty()) {
+                ArrayList<Alojamiento> alojamientos = AlojamientosRepository.getAll();
+                if (!alojamientos.isEmpty()) {
+                    ctx.status(200).json(alojamientos);
+                    return;
+                }
+                ctx.status(404).json(Map.of("message", "Not found"));
+                return;
+            }
+
+            ArrayList<Alojamiento> alojamientos = AlojamientosRepository.getByEmail(email);
             if (alojamientos != null) {
                 ctx.status(200).json(alojamientos);
                 return;
             }
             ctx.status(404).json(Map.of("message", "Not found"));
-            return;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-        ArrayList<Alojamiento> alojamientos = AlojamientosRepository.getByEmail(email);
-        if (alojamientos != null) {
-            ctx.status(200).json(alojamientos);
-            return;
-        }
-        ctx.status(404).json(Map.of("message", "Not found"));
     }
 
     public static void getAlojamientoById(Context ctx) {
